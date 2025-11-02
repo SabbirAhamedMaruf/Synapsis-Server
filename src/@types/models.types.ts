@@ -1,7 +1,8 @@
 export type singleModelInfo = {
   name: string;
   description: string;
-  models: string[];
+  provider: string;
+  parameters: string[];
   tags: string[];
   pulls: string;
   updatedAt: string;

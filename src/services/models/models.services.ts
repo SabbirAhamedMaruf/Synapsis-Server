@@ -13,12 +13,16 @@ export const getModelsService = async (): Promise<singleModelInfo[]> => {
     const modelInfo: singleModelInfo = {
       name: "",
       description: "",
-      models: [],
+      provider: "",
+      parameters: [],
       tags: [],
       pulls: "",
       updatedAt: "",
       isCloudModelAvailable: false,
     };
+
+    // providers
+    modelInfo.provider = "ollama";
 
     // Name
     modelInfo.name = $(element)
@@ -35,7 +39,7 @@ export const getModelsService = async (): Promise<singleModelInfo[]> => {
       .trim();
 
     // Model sizes
-    modelInfo.models = $(element)
+    modelInfo.parameters = $(element)
       .find("[x-test-size]")
       .map((_, el) => $(el).text().trim())
       .get();
@@ -55,9 +59,11 @@ export const getModelsService = async (): Promise<singleModelInfo[]> => {
     // isCloudModelAvailable
     modelInfo.isCloudModelAvailable =
       modelInfo.tags.includes("cloud") ||
-      modelInfo.models.some((m) => m.includes("cloud"));
+      modelInfo.parameters.some((m) => m.includes("cloud"));
 
     models.push(modelInfo);
   });
   return models;
+
+  // TODO : Add Isinstalled
 };
